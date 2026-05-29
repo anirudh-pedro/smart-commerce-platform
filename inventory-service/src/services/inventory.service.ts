@@ -1,5 +1,9 @@
 import { Inventory } from "../models/inventory.model";
 
+export async function getAllInventory() {
+  return await Inventory.find({});
+}
+
 export async function updateInventory(order: any) {
   let item = await Inventory.findOne({
     product: order.product,

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createOrder } from "../services/order.service";
+import { createOrder, getOrders } from "../services/order.service";
 
 export async function createOrderController(
   req: Request,
@@ -20,5 +20,18 @@ export async function createOrderController(
     res.status(500).json({
       error: "Failed to create order",
     });
+  }
+}
+
+export async function getOrdersController(
+  req: Request,
+  res: Response
+) {
+  try {
+    const orders = await getOrders();
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch orders" });
   }
 }
