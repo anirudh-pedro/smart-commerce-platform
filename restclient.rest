@@ -2,6 +2,6 @@ POST http://localhost:5001/orders
 Content-Type: application/json
 
 {
-  "product": "book",
-  "quantity": 2
+  "product": "phone",
+  "quantity": 1
 }
