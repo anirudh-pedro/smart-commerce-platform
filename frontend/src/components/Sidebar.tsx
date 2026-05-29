@@ -22,11 +22,8 @@ export const Sidebar: React.FC = () => {
       </div>
       <div className="flex flex-col gap-1 px-4 flex-1">
         <NavLink to="/" end className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive ? 'bg-blue-600 font-medium text-white' : 'hover:bg-slate-800'}`}><LayoutDashboard size={20}/> Dashboard</NavLink>
-        <NavLink to="/events" className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive ? 'bg-blue-600 font-medium text-white' : 'hover:bg-slate-800'}`}><Activity size={20}/> Live Events</NavLink>
-        <NavLink to="/system-health" className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive ? 'bg-blue-600 font-medium text-white' : 'hover:bg-slate-800'}`}><Monitor size={20}/> System Health</NavLink>
         <NavLink to="/order-tracker" className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive ? 'bg-blue-600 font-medium text-white' : 'hover:bg-slate-800'}`}><Route size={20}/> Order Tracker</NavLink>
         <NavLink to="/architecture" className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors ${isActive ? 'bg-blue-600 font-medium text-white' : 'hover:bg-slate-800'}`}><Share2 size={20}/> Architecture</NavLink>
-        <NavLink to="/demo" className={({isActive}) => `flex items-center gap-3 p-3 rounded-lg transition-colors mt-6 text-yellow-400 border border-yellow-500/20 ${isActive ? 'bg-yellow-500/20' : 'hover:bg-slate-800'}`}><Package size={20}/> Interview Demo</NavLink>
       </div>
 
       <div className="p-4 border-t border-slate-800 shrink-0">
