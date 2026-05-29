@@ -1,0 +1,7 @@
+.inventory-page table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.inventory-page th, .inventory-page td { padding: 14px 20px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+.inventory-page th { background: #f8f9fa; font-weight: 600; }
+.stock-badge { padding: 6px 12px; border-radius: 20px; font-weight: 600; color: #fff; font-size: 0.85rem; }
+.stock-high { background: #2ecc71; }
+.stock-med { background: #f39c12; color: #fff; }
+.stock-low { background: #e74c3c; }

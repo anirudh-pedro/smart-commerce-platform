@@ -1,29 +1,15 @@
-import { consumer } from "../config/kafka";
-import { sendNotification } from "../services/notification.service";
-
+import { consumer, producer } from "../config/kafka";
+import { processNotification } from "../services/notification.service";
 export async function startOrderConsumer() {
   await consumer.connect();
-
-  console.log("Notification Consumer Connected");
-
-  await consumer.subscribe({
-    topic: "orders.created",
-    fromBeginning: true,
-  });
-
-  console.log("Listening to orders.created");
-
+  await producer.connect();
+  await consumer.subscribe({ topic: "orders.created", fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ message }) => {
-      const value = message.value?.toString();
-
-      if (!value) return;
-
-      const data = JSON.parse(value);
-
-      console.log("Event Received");
-
-      await sendNotification(data);
+      if (!message.value) return;
+      const payload = JSON.parse(message.value.toString());
+      const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
+      await processNotification(order);
     },
   });
 }

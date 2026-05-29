@@ -11,7 +11,7 @@ export async function createOrder(orderData: any) {
     topic: "orders.created",
     messages: [
       {
-        value: JSON.stringify(order.toJSON()),
+        value: JSON.stringify({ orderId: order._id, type: "ORDER_CREATED", service: "Order Service", timestamp: new Date(), payload: order.toJSON() }),
       },
     ],
   });

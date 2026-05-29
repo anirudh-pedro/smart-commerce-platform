@@ -1,26 +1,14 @@
-import { consumer } from "../config/kafka";
+import { consumer, producer } from "../config/kafka";
 import { updateAnalytics } from "../services/analytics.service";
-
 export async function startOrderConsumer() {
   await consumer.connect();
-
-  console.log("Analytics Consumer Connected");
-
-  await consumer.subscribe({
-    topic: "orders.created",
-    fromBeginning: true,
-  });
-
-  console.log("Listening to orders.created");
-
+  await producer.connect();
+  await consumer.subscribe({ topic: "orders.created", fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ message }) => {
-      const value = message.value?.toString();
-
-      if (!value) return;
-
-      const order = JSON.parse(value);
-
+      if (!message.value) return;
+      const payload = JSON.parse(message.value.toString());
+      const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
       await updateAnalytics(order);
     },
   });

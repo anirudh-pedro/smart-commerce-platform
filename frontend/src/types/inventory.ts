@@ -1,0 +1,1 @@
+export interface InventoryItem { _id: string; product: string; stock: number; }

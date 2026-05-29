@@ -1,0 +1,1 @@
+export interface AnalyticsData { totalOrders: number; totalProductsSold: number; }

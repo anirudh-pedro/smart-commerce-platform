@@ -1,10 +1,4 @@
 import { Kafka } from "kafkajs";
-
-const kafka = new Kafka({
-  clientId: "inventory-service",
-  brokers: ["localhost:9092"],
-});
-
-export const consumer = kafka.consumer({
-  groupId: "inventory-group",
-});
+const kafka = new Kafka({ clientId: "inventory-service", brokers: ["localhost:9092"] });
+export const consumer = kafka.consumer({ groupId: "inventory-group" });
+export const producer = kafka.producer();
