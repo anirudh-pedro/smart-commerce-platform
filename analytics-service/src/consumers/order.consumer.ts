@@ -6,10 +6,14 @@ export async function startOrderConsumer() {
   await consumer.subscribe({ topic: "orders.created", fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ message }) => {
-      if (!message.value) return;
-      const payload = JSON.parse(message.value.toString());
-      const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
-      await updateAnalytics(order);
+      try {
+        if (!message.value) return;
+        const payload = JSON.parse(message.value.toString());
+        const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
+        await updateAnalytics(order);
+      } catch (err) {
+        console.error("Analytics error:", err);
+      }
     },
   });
 }

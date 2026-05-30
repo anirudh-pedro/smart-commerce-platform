@@ -28,22 +28,22 @@ export const Dashboard: React.FC = () => {
       <h1 className="text-3xl font-bold tracking-tight text-white mb-8">Real-Time Metrics Overview</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <MetricCard title="Total Orders" value={totalOrders} color="border-blue-500" />
-        <MetricCard title="Total Products Sold" value={totalProductsSold} color="border-green-500" />
-        <MetricCard title="Inventory Events" value={inventoryEvents} color="border-orange-500" />
-        <MetricCard title="Notifications Sent" value={notificationEvents} color="border-purple-500" />
+        <MetricCard title="Total Orders" value={totalOrders} />
+        <MetricCard title="Total Products Sold" value={totalProductsSold} />
+        <MetricCard title="Inventory Events" value={inventoryEvents} />
+        <MetricCard title="Notifications Sent" value={notificationEvents} />
       </div>
 
-      <div className="mt-8 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
-        <h2 className="text-lg font-bold mb-6 text-slate-300">Live Architecture Activity</h2>
+      <div className="mt-8 bg-neutral-900 border border-neutral-800 rounded-xl p-6 shadow-xl">
+        <h2 className="text-lg font-bold mb-6 text-neutral-300">Live Architecture Activity</h2>
         <div style={{ width: '100%', height: 300, minHeight: 0 }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-              <XAxis dataKey="time" stroke="#94a3b8" />
-              <YAxis stroke="#94a3b8" hide />
-              <Tooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #334155' }} />
-              <Line type="monotone" dataKey="index" stroke="#3b82f6" strokeWidth={3} isAnimationActive={false} dot={{ fill: '#3b82f6', strokeWidth: 2 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis dataKey="time" stroke="#888" />
+              <YAxis stroke="#888" hide />
+              <Tooltip contentStyle={{ backgroundColor: '#111', border: '1px solid #333' }} />
+              <Line type="monotone" dataKey="index" stroke="#fff" strokeWidth={3} isAnimationActive={false} dot={{ fill: '#fff', strokeWidth: 2 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -52,15 +52,15 @@ export const Dashboard: React.FC = () => {
   );
 };
 
-const MetricCard: React.FC<{title: string, value: number, color: string}> = ({title, value, color}) => (
+const MetricCard: React.FC<{title: string, value: number}> = ({title, value}) => (
   <motion.div 
     key={value}
     initial={{ scale: 0.9, opacity: 0.5 }}
     animate={{ scale: 1, opacity: 1 }}
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-    className={`bg-slate-900 border-l-4 ${color} p-6 rounded-r-xl shadow-xl flex flex-col justify-center border border-y-slate-800 border-r-slate-800`}
+    className="bg-neutral-900 p-6 rounded-xl shadow-xl flex flex-col justify-center border border-neutral-800"
   >
-    <div className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-2">{title}</div>
+    <div className="text-neutral-400 text-sm font-bold uppercase tracking-wider mb-2">{title}</div>
     <div className="text-4xl font-black text-white">{value}</div>
   </motion.div>
 );

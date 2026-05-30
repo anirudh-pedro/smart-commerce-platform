@@ -6,11 +6,15 @@ export async function startOrderConsumer() {
   await consumer.subscribe({ topic: "orders.created", fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ message }) => {
-      if (!message.value) return;
-      const payload = JSON.parse(message.value.toString());
-      // Adjust if payload is nested
-      const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
-      await updateInventory(order);
+      try {
+        if (!message.value) return;
+        const payload = JSON.parse(message.value.toString());
+        // Adjust if payload is nested
+        const order = payload.type === 'ORDER_CREATED' ? payload.payload : payload;
+        await updateInventory(order);
+      } catch (err) {
+        console.error("Inventory error:", err);
+      }
     },
   });
 }

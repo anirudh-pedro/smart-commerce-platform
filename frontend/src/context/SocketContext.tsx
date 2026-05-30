@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import toast from 'react-hot-toast';
 
 export interface SystemEvent {
   _id: string;
@@ -35,6 +36,13 @@ export const SocketProvider: React.FC<{children: React.ReactNode}> = ({ children
     
     socket.on("system_event", (event: SystemEvent) => {
       eventBuffer.push(event);
+      if (event.type === 'NOTIFICATIONS_SENT') {
+        const payloadText = event.payload && event.payload.type ? `(${event.payload.type})` : '';
+        toast.success(`Notification sent to Customer ${payloadText}`, {
+          style: { background: '#334155', color: '#fff', border: '1px solid #475569' },
+          icon: '📧'
+        });
+      }
     });
 
     // Throttle UI updates to once per 500ms to keep animations and Recharts responsive

@@ -26,21 +26,25 @@ async function startWebSocketHub() {
   
   await wsConsumer.run({
     eachMessage: async ({ topic, message }) => {
-      if(!message.value) return;
-      const rawPayload = JSON.parse(message.value.toString());
-      
-      // Heartbeat system support - emitting event to UI
-      const eventData = {
-        _id: Math.random().toString(36).substring(7),
-        topic: topic,
-        type: rawPayload.type || topic.toUpperCase().replace('.', '_'),
-        service: rawPayload.service || topic.split('.')[0] + '-service',
-        timestamp: rawPayload.timestamp || new Date().toISOString(),
-        payload: rawPayload.payload || rawPayload,
-        orderId: rawPayload.orderId || rawPayload._id || "N/A"
-      };
-      
-      io.emit("system_event", eventData);
+      try {
+        if(!message.value) return;
+        const rawPayload = JSON.parse(message.value.toString());
+        
+        // Heartbeat system support - emitting event to UI
+        const eventData = {
+          _id: Math.random().toString(36).substring(7),
+          topic: topic,
+          type: rawPayload.type || topic.toUpperCase().replace('.', '_'),
+          service: rawPayload.service || topic.split('.')[0] + '-service',
+          timestamp: rawPayload.timestamp || new Date().toISOString(),
+          payload: rawPayload.payload || rawPayload,
+          orderId: rawPayload.orderId || rawPayload._id || "N/A"
+        };
+        
+        io.emit("system_event", eventData);
+      } catch (err) {
+        console.error("WebSocket hub message processing error:", err);
+      }
     }
   });
 }
